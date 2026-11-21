@@ -1,25 +1,18 @@
 #include "push_swap.h"
-#include <stdlib.h>
-#include <stdio.h>
 
 int duble_cates(t_stack *head)
 {
-    t_stack *hea = head;
-    t_stack *hea2 = head;
-    hea = head->next;
     while (head)
     {
-        while (hea)
+        int value = head->value;
+        t_stack *current = head->next;
+        while (current)
         {
-            if (head->value == hea->value)
+            if(current->value == value)
                 return 1;
-            else
-            {
-                hea = hea->next;
-            }
+            current = current->next;
         }
         head = head->next;
-        hea = head->next;
     }
     return 0;
 }
@@ -37,23 +30,50 @@ int main(int ac, char **av)
     i = 1;
     while (i < ac)
     {
-        new_node = malloc(sizeof(t_stack));
-        if (!new_node)
-            return (1);
-        new_node->value = atoi(av[i]);
-        new_node->next = NULL;
-        if(stack_a == NULL)
-            stack_a = new_node;
+        if(is_valid(av[i]) == 1)
+        {
+            new_node = malloc(sizeof(t_stack));
+            if (!new_node)
+                return (1);
+            new_node->value = atoi(av[i]);
+            new_node->next = NULL;
+            if(stack_a == NULL)
+                stack_a = new_node;
+            else
+                last->next = new_node;
+            last = new_node;
+            i++;
+        }
         else
-            last->next = new_node;
-        last = new_node;
-        i++;
+        {
+            write(2,"Error\n",6);
+            //free_nodes
+            return (-1);
+        }
     }
-    // while (stack_a)
-    // {
-    //     printf("%d\n", stack_a->value);
-    //     stack_a = stack_a->next;
-    // }
-    printf("%d", duble_cates(stack_a));
+    // sa(&stack_a);
+    if(duble_cates(stack_a) == 0)
+    {
+        while (stack_a)
+        {
+            printf("%d\n", stack_a->value);
+            stack_a = stack_a->next;
+        }
+    }
+    else
+    {
+        write(2,"Error\n",6);
+        return (-1);
+    }
     return (0);
 }
+
+
+
+// av[1] = "2 1 3 4";
+/*
+sa,sb,ss, change first two
+pa,pb, move top one b to a and a to b
+ra,rb,rr, top one 
+rra,rrb,rrr last one 
+*/
