@@ -13,6 +13,7 @@ void sa(t_stack **stack_a)
     second->next = head;
     head->next = cuurent;
     *stack_a = second;
+    write(1, "sa\n", 3);
 }
 
 void sb(t_stack **stack_b)
@@ -28,10 +29,12 @@ void sb(t_stack **stack_b)
     second->next = head;
     head->next = cuurent;
     *stack_b = second;
+    write(1, "sb\n", 3);
 }
 
 void ss(t_stack **stack_a, t_stack **stack_b)
 {
     sa(&stack_a);
     sb(&stack_b);
+    write(1, "ss\n", 3);
 }
