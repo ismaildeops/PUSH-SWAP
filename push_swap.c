@@ -20,13 +20,13 @@ int duble_cates(t_stack *head)
 int main(int ac, char **av)
 {
     t_stack *stack_a;
-    t_stack *stack_b;
+    // t_stack *stack_b;
     t_stack *new_node;
     t_stack *last;
     int     i;
 
     stack_a = NULL;
-    stack_b = NULL;
+    // stack_b = NULL;
     i = 1;
     while (i < ac)
     {
@@ -35,7 +35,8 @@ int main(int ac, char **av)
             new_node = malloc(sizeof(t_stack));
             if (!new_node)
                 return (1);
-            new_node->value = atoi(av[i]);
+            new_node->value = ft_atoi(av[i]);
+            new_node->index = 0;
             new_node->next = NULL;
             if(stack_a == NULL)
                 stack_a = new_node;
@@ -47,33 +48,19 @@ int main(int ac, char **av)
         else
         {
             write(2,"Error\n",6);
-            //free_nodes
             return (-1);
         }
     }
-    // sa(&stack_a);
-    if(duble_cates(stack_a) == 0)
-    {
-        while (stack_a)
-        {
-            printf("%d\n", stack_a->value);
-            stack_a = stack_a->next;
-        }
-    }
-    else
+    if (duble_cates(stack_a) == 1)
     {
         write(2,"Error\n",6);
         return (-1);
     }
+    assign_index(stack_a);
+    while (stack_a)
+    {
+        printf("Value: %d Index: %d\n",stack_a->value, stack_a->index);
+        stack_a = stack_a->next;
+    }
     return (0);
 }
-
-
-
-// av[1] = "2 1 3 4";
-/*
-sa,sb,ss, change first two
-pa,pb, move top one b to a and a to b
-ra,rb,rr, top one 
-rra,rrb,rrr last one 
-*/
